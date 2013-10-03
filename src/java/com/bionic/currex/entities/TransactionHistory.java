@@ -11,4 +11,5 @@ package com.bionic.currex.entities;
 public class TransactionHistory {
     
     private int transactionId;
+    private ExchangeOrder order;
 }

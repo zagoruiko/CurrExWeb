@@ -4,6 +4,7 @@
  */
 package com.bionic.currex.jdbc.connection;
 
+import com.bionic.currex.jdbc.dao.user.IUserDao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author Sergio
  */
-public class DAOMysql extends DAOBase {
+public class DAOMysql extends DAOFactory {
     
     private static final String DRIVER_CLASS = "org.gjt.mm.mysql.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/currexdb";
@@ -27,6 +28,11 @@ public class DAOMysql extends DAOBase {
     @Override
     protected String getDriverClass() {
         return DRIVER_CLASS;
+    }
+
+    @Override
+    public IUserDao getUserDao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

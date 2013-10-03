@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import static com.bionic.currex.jdbc.connection.DBTypes.MYSQL;
+import com.bionic.currex.jdbc.dao.user.IUserDao;
 
 /*
  * To change this template, choose Tools | Templates
@@ -16,9 +17,14 @@ import static com.bionic.currex.jdbc.connection.DBTypes.MYSQL;
  */
 public abstract class DAOFactory {
     
-  private static DAOBase driver = null;
+    private static DAOFactory driver = null;
 
-    public static DAOBase createDriver(final DBTypes dbType) throws ClassNotFoundException {
+    public abstract Connection getConnection() throws SQLException;
+    protected abstract String getDriverClass();
+    
+    public abstract IUserDao getUserDao();
+    
+    public static DAOFactory createDriver(final DBTypes dbType) throws ClassNotFoundException {
         switch (dbType) {
             case MYSQL:
                 driver = new DAOMysql();
@@ -30,7 +36,7 @@ public abstract class DAOFactory {
         return driver;
     }
 
-    private DAOFactory() {
+    public DAOFactory() {
     }
     
 }

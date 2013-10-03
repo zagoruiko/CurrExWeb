@@ -19,13 +19,29 @@ public class User implements Serializable {
     private String lastName;
     private String nickName;
     private String email;
+    private String password;
     private int phone;
     private int cell;
     private UserRole role;
     private UserAddress userAddress;
     private Account userAccount;
-    
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Account getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(Account userAccount) {
+        this.userAccount = userAccount;
+    }
+    
     public int getUserId() {
         return userId;
     }
@@ -106,10 +122,12 @@ public class User implements Serializable {
         hash = 53 * hash + Objects.hashCode(this.lastName);
         hash = 53 * hash + Objects.hashCode(this.nickName);
         hash = 53 * hash + Objects.hashCode(this.email);
+        hash = 53 * hash + Objects.hashCode(this.password);
         hash = 53 * hash + this.phone;
         hash = 53 * hash + this.cell;
         hash = 53 * hash + Objects.hashCode(this.role);
         hash = 53 * hash + Objects.hashCode(this.userAddress);
+        hash = 53 * hash + Objects.hashCode(this.userAccount);
         return hash;
     }
 
@@ -140,6 +158,9 @@ public class User implements Serializable {
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
         if (this.phone != other.phone) {
             return false;
         }
@@ -147,6 +168,9 @@ public class User implements Serializable {
             return false;
         }
         if (this.role != other.role) {
+            return false;
+        }
+        if (this.userAccount != other.userAccount) {
             return false;
         }
         return true;
