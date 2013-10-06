@@ -5,13 +5,16 @@
 package com.bionic.currex.jdbc.dao.user;
 
 import com.bionic.currex.entities.User;
+import com.bionic.currex.entities.UserRole;
 import java.util.ArrayList;
 /**
  *
  * @author Sergio
  */
 public interface IUserDao {
-    public void addUser(User user) throws Exception;
+    public int addUser(String firstName, String lastName, 
+            String nickName, String email, String password, int phone, int cell,
+            int userRoleId) throws Exception;
     public void updateUser(User user) throws Exception;
     public ArrayList<User> findAll() throws Exception;
     public User findById(int id) throws Exception;

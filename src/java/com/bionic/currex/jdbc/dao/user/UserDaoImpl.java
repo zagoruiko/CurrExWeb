@@ -14,8 +14,9 @@ import java.util.ArrayList;
 public class UserDaoImpl implements IUserDao{
 
     @Override
-    public void addUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int addUser(String firstName, String lastName, String nickName, 
+    String email, String password, int phone, int cell, int userRoleId) throws Exception {
+        
     }
 
     @Override
@@ -42,5 +43,7 @@ public class UserDaoImpl implements IUserDao{
     public ArrayList<User> findBySecondName(String secondName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }
