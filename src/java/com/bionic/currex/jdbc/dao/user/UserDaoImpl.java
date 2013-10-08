@@ -143,6 +143,44 @@ public class UserDaoImpl implements IUserDao{
 
     }
 
+    @Override
+    public boolean findByEmailAndPassword(String email, String password) {
+        boolean isFound = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            conn = this.getConnection();
+            ps = conn.prepareStatement("SELECT email, password, " 
+                    + "FROM User WHERE email=?, password=?;");
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ps.execute();
+            rs = ps.getResultSet();
+            if (rs.next()){
+                isFound = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null){
+                try {
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return isFound;
+        }
+    }
+
     
     
 }

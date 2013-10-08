@@ -16,6 +16,7 @@ public interface IUserDao {
             String nickName, String email, String password, int phone, int cell,
             int userRoleId);
     public void updateUser(User user) throws Exception;
+    public boolean findByEmailAndPassword (String email, String password);
     public ArrayList<User> findAll() throws Exception;
     public User findById(int id) throws Exception;
     public User findByEmail(String email);
