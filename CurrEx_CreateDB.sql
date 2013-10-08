@@ -24,12 +24,11 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `CurrExDB`.`User` (
   `UserId` INT NOT NULL AUTO_INCREMENT ,
   `FirstName` VARCHAR(45) NOT NULL ,
-  `SecondName` VARCHAR(45) NOT NULL ,
+  `LastName` VARCHAR(45) NOT NULL ,
   `NickName` VARCHAR(45) NULL DEFAULT NULL ,
   `Email` VARCHAR(45) NOT NULL ,
   `Phone` INT NULL DEFAULT NULL ,
-  `Celll` INT NULL DEFAULT NULL ,
-  `Role` VARCHAR(15) NULL DEFAULT NULL ,
+  `Cell` INT NULL DEFAULT NULL ,
   `RoleId` INT NOT NULL ,
   `Password` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`UserId`) ,
@@ -37,7 +36,7 @@ CREATE  TABLE IF NOT EXISTS `CurrExDB`.`User` (
   UNIQUE INDEX `NickName_UNIQUE` (`NickName` ASC) ,
   UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) ,
   UNIQUE INDEX `Phone_UNIQUE` (`Phone` ASC) ,
-  UNIQUE INDEX `Celll_UNIQUE` (`Celll` ASC) ,
+  UNIQUE INDEX `Cell_UNIQUE` (`Cell` ASC) ,
   INDEX `fk_User_Role1_idx` (`RoleId` ASC) ,
   CONSTRAINT `fk_User_Role1`
     FOREIGN KEY (`RoleId` )

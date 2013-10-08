@@ -19,12 +19,13 @@ public abstract class DAOFactory {
     
     private static DAOFactory driver = null;
 
-    public abstract Connection getConnection() throws SQLException;
     protected abstract String getDriverClass();
+    
+    public abstract Connection getConnection() throws SQLException;
     
     public abstract IUserDao getUserDao();
     
-    public static DAOFactory createDriver(final DBTypes dbType) throws ClassNotFoundException {
+    public static DAOFactory createDriver(final DBTypes dbType) {
         switch (dbType) {
             case MYSQL:
                 driver = new DAOMysql();

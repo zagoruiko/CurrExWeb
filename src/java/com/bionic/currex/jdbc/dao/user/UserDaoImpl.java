@@ -5,9 +5,12 @@
 package com.bionic.currex.jdbc.dao.user;
 
 import com.bionic.currex.entities.User;
+import com.bionic.currex.jdbc.connection.DAOFactory;
+import com.bionic.currex.jdbc.connection.DBTypes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -17,16 +20,21 @@ import java.util.ArrayList;
  */
 public class UserDaoImpl implements IUserDao{
 
+    private Connection getConnection() throws SQLException{
+        return DAOFactory.createDriver(DBTypes.MYSQL).getConnection();
+    }
+    
     @Override
-    public int addUser(String firstName, String lastName, String nickName, 
-        String email, String password, int phone, int cell, int userRoleId) throws Exception {
+    public int insertUser(String firstName, String lastName, String nickName, 
+        String email, String password, int phone, int cell, int userRoleId) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         int id = -1;
         try{
+            conn = this.getConnection();
             ps = conn.prepareStatement("INSERT INTO User(firstName, lastName, "
-                    + "nickName, email, password, phone, cell, userRoleId) "
+                    + "nickName, email, password, phone, cell, RoleId) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);", 
                     PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, firstName);
@@ -47,6 +55,13 @@ public class UserDaoImpl implements IUserDao{
             if (ps != null) {
                 try {
                     ps.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null){
+                try {
+                    conn.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -78,6 +93,54 @@ public class UserDaoImpl implements IUserDao{
     @Override
     public ArrayList<User> findBySecondName(String secondName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        User user = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            conn = this.getConnection();
+            ps = conn.prepareStatement("SELECT userId, firstName, lastName, "
+                    + "nickName, email, password, phone, cell, RoleId " 
+                    + "FROM User WHERE email=?;");
+            ps.setString(1, email);
+            ps.execute();
+            rs = ps.getResultSet();
+            if (rs.next()){
+                user = new User(rs.getInt("userId"), 
+                        rs.getString("firstName"), 
+                        rs.getString("lastName"),
+                        rs.getString("nickName"),
+                        email,
+                        rs.getString("password"),
+                        rs.getInt("phone"),
+                        rs.getInt("cell"),
+                        rs.getInt("RoleId"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null){
+                try {
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return user;
+        }
+    
+
     }
 
     

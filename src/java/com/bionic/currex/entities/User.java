@@ -7,6 +7,7 @@ package com.bionic.currex.entities;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.logging.Logger;
+import com.bionic.currex.jdbc.dao.user.*;
 
 /**
  *
@@ -22,13 +23,14 @@ public class User implements Serializable {
     private String password;
     private int phone;
     private int cell;
-    private UserRole role;
-    private UserAddress userAddress;
-    private Account userAccount;
+    private int roleId;
+//    private UserAddress userAddress;
+//    private Account userAccount;
 
-    public User(String firstName, String lastName, 
+    public User(int userId, String firstName, String lastName, 
             String nickName, String email, String password, int phone, int cell,
-            UserRole role) {
+            int roleId) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
@@ -36,7 +38,7 @@ public class User implements Serializable {
         this.password = password;
         this.phone = phone;
         this.cell = cell;
-        this.role = role;
+        this.roleId = roleId;
         
     }
     
@@ -48,13 +50,13 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Account getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(Account userAccount) {
-        this.userAccount = userAccount;
-    }
+//    public Account getUserAccount() {
+//        return userAccount;
+//    }
+//
+//    public void setUserAccount(Account userAccount) {
+//        this.userAccount = userAccount;
+//    }
     
     public int getUserId() {
         return userId;
@@ -112,21 +114,21 @@ public class User implements Serializable {
         this.cell = cell;
     }
 
-    public UserRole getRole() {
-        return role;
-    }
+//    public UserRole getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(UserRole role) {
+//        this.role = role;
+//    }
+//
+//    public UserAddress getUserAddress() {
+//        return userAddress;
+//    }
 
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    public UserAddress getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(UserAddress userAddress) {
-        this.userAddress = userAddress;
-    }
+//    public void setUserAddress(UserAddress userAddress) {
+//        this.userAddress = userAddress;
+//    }
     
     @Override
     public int hashCode() {
@@ -139,9 +141,9 @@ public class User implements Serializable {
         hash = 53 * hash + Objects.hashCode(this.password);
         hash = 53 * hash + this.phone;
         hash = 53 * hash + this.cell;
-        hash = 53 * hash + Objects.hashCode(this.role);
-        hash = 53 * hash + Objects.hashCode(this.userAddress);
-        hash = 53 * hash + Objects.hashCode(this.userAccount);
+//        hash = 53 * hash + Objects.hashCode(this.role);
+//        hash = 53 * hash + Objects.hashCode(this.userAddress);
+//        hash = 53 * hash + Objects.hashCode(this.userAccount);
         return hash;
     }
 
@@ -181,12 +183,23 @@ public class User implements Serializable {
         if (this.cell != other.cell) {
             return false;
         }
-        if (this.role != other.role) {
-            return false;
-        }
-        if (this.userAccount != other.userAccount) {
-            return false;
-        }
+//        if (this.role != other.role) {
+//            return false;
+//        }
+//        if (this.userAccount != other.userAccount) {
+//            return false;
+//        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "userId=" + userId + ", firstName=" 
+                + firstName + ", lastName=" + lastName + ", nickName=" 
+                + nickName + ", email=" + email + ", password=" + password 
+                + ", phone=" + phone + ", cell=" + cell + ", roleId=" 
+                + roleId + '}';
+    }
+    
+    
 }
