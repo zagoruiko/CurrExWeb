@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/CurrExWeb"/>
+<Context antiJARLocking="true" path="/CurrExWeb">
+    <Recource name="root" password="root" type="javax.sql.DataSource"
+    url="jdbc:mysql://localhost:3306/currexdb" username="root"/>
+</Context>

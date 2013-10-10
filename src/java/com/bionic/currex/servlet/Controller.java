@@ -4,8 +4,11 @@
  */
 package com.bionic.currex.servlet;
 
+import com.bionic.currex.commands.ICommand;
+import com.bionic.currex.manager.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Controller", urlPatterns = {"/Controller"})
 public class Controller extends HttpServlet {
 
+    ControllerHelper controllerHelper = ControllerHelper.getInstance();
+    
+    public Controller(){
+        super();
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -31,22 +39,23 @@ public class Controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        String page = null;
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controller</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
-        }
+            ICommand command = controllerHelper.getCommand(request);
+            page = command.execute(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+            request.setAttribute("messageError", Message.getInstance().getProperty(Message.SERVLET_EXECPTION));
+
+        } 
+//        catch (IOException e) {
+//            e.printStackTrace();
+//            request.setAttribute("messageError", Message.getInstance().getProperty(Message.IO_EXCEPTION));
+//
+//        }
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
