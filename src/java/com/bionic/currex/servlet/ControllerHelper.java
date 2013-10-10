@@ -5,6 +5,7 @@
 package com.bionic.currex.servlet;
 
 import com.bionic.currex.commands.CommandLogin;
+import com.bionic.currex.commands.CommandMissing;
 import com.bionic.currex.commands.ICommand;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
