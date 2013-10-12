@@ -5,6 +5,7 @@
 package com.bionic.currex.jdbc.connection;
 
 import com.bionic.currex.jdbc.dao.user.IUserDao;
+import com.bionic.currex.jdbc.dao.user.UserDaoImpl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class DAOMysql extends DAOFactory {
 
     @Override
     public IUserDao getUserDao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new UserDaoImpl();
     }
     
 }

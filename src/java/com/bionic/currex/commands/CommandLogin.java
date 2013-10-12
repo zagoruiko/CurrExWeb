@@ -29,7 +29,7 @@ public class CommandLogin implements ICommand {
         String password = request.getParameter(PASSWORD);
         IUserDao userDao = DAOFactory.createDriver(DBTypes.MYSQL).getUserDao();
         
-
+        
         if (userDao.findByEmailAndPassword(email, password)) {
             request.setAttribute("email", email);
             page = Config.getInstance().getProperty(Config.MAIN);
